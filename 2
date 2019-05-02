@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cut -d: -f1 /etc/passwd
+read -p 'kullanıcı adı giriniz:' TEST_USER
+TEST_USER_ID=$(id -u $TEST_USER)
+echo "$TEST_USER kullanicisinin kullanıcısı numarası = $TEST_USER_ID"
