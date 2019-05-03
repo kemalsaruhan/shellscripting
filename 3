@@ -1,0 +1,40 @@
+#! /bin/bash
+
+if [[ "$UID" -ne 0 ]]
+then
+	echo "Root yetkisi ile baglan hayata."
+	exit 1
+fi
+
+read -p "Adın :" NAME
+read -p "Açıama ne yazalı: m" COMMENT
+read -p "Zor bir sifre belirle: " PASSWORD
+
+useradd -m $NAME -c "${COMMENT}"
+
+if [[ "$?" -ne 0 ]]
+then
+	echo "kullanıcı olusturma basarıs
+	exit 1
+fi
+
+echo $PASSWORD | passwd --stdin $NAME
+
+if [[ "$?" -ne 0 ]]
+then
+        echo "sifre belirleyemedin""
+        exit 1
+fi
+
+#force 
+passwd -e $NAME
+
+echo
+echo "kullanıcı"
+echo  $USER
+echo
+echo "ACIKLAMA: $COMMENT"
+echo
+echo "güvenli sifren"
+echo $PASSWORD
+
